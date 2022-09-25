@@ -9,6 +9,10 @@ caver = new CaverExtKAS(chainId, accessKeyId, secretAccessKey);
 //caver.initKASAPI(chainId, accessKeyId, secretAccessKey);
 var net = require('net');
 var client = new net.Socket();
+var candidates = {
+  'Donald Trump': '0x1b9978D88f0B9a248d7AeC134d50F2D4f5DC4966',
+  'Joe Biden': '0x1b9978D88f0B9a248d7AeC134d50F2D4f5DC4966'
+};
 
 async function blocknumber() {
   const blockNumber = await caver.rpc.klay.getBlockNumber();
@@ -40,14 +44,26 @@ async function createToken7(){
   }, address);
 }
 
-async function distributeToken(token_address, sender, recipient, amt){
+async function sendToken(token_address, sender, recipient, amt){
   kip7 = new caver.kct.kip7(token_address);
   kip7.options.from = sender;
   kip7.transfer(recipient, amt);
 }
 
-for (x in list){
-  
+async function checkBalance(token_address, target){
+  kip7 = new caver.kct.kip7(token_address);
+  kip7.balanceOf(target).then(console.log);
 }
 
-//distributeToken('0x470787668904f21a53801440906a00f8953d1c6b', address, '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7', 10);
+function distributeAll(token_address, sender, recipientList, amt){
+  for (i = 0; i < recipientList.length; i++){
+    sendToken(token_address, sender, recipientList[i], amt);
+  }
+}
+
+async function vote(token_address, sender, candidate){
+  sendToken(token_address, sender, candidates[candidate], amt);
+}
+//sendToken('0x470787668904f21a53801440906a00f8953d1c6b', address, '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7', 10);
+
+checkBalance('0x470787668904f21a53801440906a00f8953d1c6b', '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7')
