@@ -20,14 +20,26 @@ async function contractList() {
   console.log(ftContracts)
 }
 
-async function createToken(){
-  const kip17 = await caver.kct.kip17.deploy({
+async function createToken17(){
+  const kip17 = new caver.kct.kip7(address);
+  const make_token = await caver.kct.kip7.deploy({
     name: 'Vote',
     symbol: 'VOT'
   }, address);
   //const ret2 = await caver.kas.kip17.getToken('', 1);
   //console.log(ret2);
-  console.log(kip17);
+  kip7.detectInterface();
 }
 
-createToken();
+async function createToken7(){
+  new_token = caver.kct.kip7.deploy({
+    name: 'Jasmine',
+    symbol: 'JAS',
+    decimals: 18,
+    initialSupply: '100000000000000000000',
+  }, address);
+  const kip7 = caver.kct.kip7.create('0xea29c8091d615c6f51592d17c8282fa187ed0b50');
+  kip7.totalSupply().then(console.log);
+}
+
+createToken7();
