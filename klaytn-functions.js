@@ -21,25 +21,33 @@ async function contractList() {
 }
 
 async function createToken17(){
-  const kip17 = new caver.kct.kip7(address);
-  const make_token = await caver.kct.kip7.deploy({
+  //const kip17 = new caver.kct.kip7(address);
+  new_token = await caver.kct.kip17.deploy({
     name: 'Vote',
     symbol: 'VOT'
   }, address);
   //const ret2 = await caver.kas.kip17.getToken('', 1);
   //console.log(ret2);
-  kip7.detectInterface();
+  //kip17.detectInterface();
 }
 
 async function createToken7(){
   new_token = caver.kct.kip7.deploy({
-    name: 'Jasmine',
-    symbol: 'JAS',
+    name: 'Votes',
+    symbol: 'VOT',
     decimals: 18,
-    initialSupply: '100000000000000000000',
+    initialSupply: '100',
   }, address);
-  const kip7 = caver.kct.kip7.create('0xea29c8091d615c6f51592d17c8282fa187ed0b50');
-  kip7.totalSupply().then(console.log);
 }
 
-createToken7();
+async function distributeToken(token_address, sender, recipient, amt){
+  kip7 = new caver.kct.kip7(token_address);
+  kip7.options.from = sender;
+  kip7.transfer(recipient, amt);
+}
+
+for (x in list){
+  
+}
+
+//distributeToken('0x470787668904f21a53801440906a00f8953d1c6b', address, '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7', 10);
