@@ -55,15 +55,20 @@ async function checkBalance(token_address, target){
   kip7.balanceOf(target).then(console.log);
 }
 
+async function sendTokenSafe(token_address, sender, recipient, amt){
+  kip7 = new caver.kct.kip7(token_address);
+  kip7.safeTransferFrom(sender, recipient, amt)
+}
+
 function distributeAll(token_address, sender, recipientList, amt){
   for (i = 0; i < recipientList.length; i++){
-    sendToken(token_address, sender, recipientList[i], amt);
+    sendTokenSafe(token_address, sender, recipientList[i], amt);
   }
 }
 
 async function vote(token_address, sender, candidate){
   sendToken(token_address, sender, candidates[candidate], amt);
 }
-//sendToken('0x470787668904f21a53801440906a00f8953d1c6b', address, '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7', 10);
-
-checkBalance('0x470787668904f21a53801440906a00f8953d1c6b', '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7')
+sendToken('0x7b97f76fd613d4d05b04faffb31bf881dd705a8e', address, '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7', 1);
+//createToken7();
+//checkBalance('0x470787668904f21a53801440906a00f8953d1c6b', '0xa2d46ba2c0b20652e1b8112060cb5a6c61cd91c7')
